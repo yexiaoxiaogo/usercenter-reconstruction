@@ -1,0 +1,68 @@
+server:
+  port: ${SERVER_PORT:23250}
+  error:
+    path: /error
+
+#spring
+spring:
+  datasource:
+    url: jdbc:mysql://xiaokongshop.mysql.rds.aliyuncs.com:3306/xk_usercenter?useUnicode=true&useSSL=false&characterEncoding=UTF-8
+    username: xk_usercenter
+    password: 5jJoZJGIBz
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    database: 1
+    host: xkshoprelease.redis.rds.aliyuncs.com
+    password: DQz4ZJF2
+    port: 6379
+  application:
+      name: usercenter-reconstruction
+   
+        
+#mybatis
+mybatis:
+  typeAliasesPackage: com.xiaokong.usercenter.**.domain
+  mapperLocations: classpath:mapper/**/*.xml
+#  config-location: classpath:mybatis-config.xml
+#  configuration:
+#    interceptors:
+#      - com.github.pagehelper.PageInterceptor
+  
+#分页插件pagehelper
+mapper: 
+  mappers: 
+    -com.xiaokong.usercenter.platform.mapper.PlatformLogMapper
+    -com.xiaokong.usercenter.platform.mapper.PlatformUserMapper
+    -com.xiaokong.usercenter.platform.mapper.PlatformAuditRecordMapper
+    -com.xiaokong.usercenter.landlord.mapper.LandlordUserMapper
+    -com.xiaokong.usercenter.supplier.mapper.SupplierCompanyMapper
+    -com.xiaokong.usercenter.wms.mapper.WmsUserWarehouseRelationMapper
+    -com.xiaokong.usercenter.wms.mapper.WmsAdminWarehouseRelationMapper
+    -com.xiaokong.usercenter.wms.mapper.WmsWarehouseMapper
+    -com.xiaokong.usercenter.wms.mapper.WmsSupplierWarehouseRelationMapper
+  not-empty: false
+  identity: MYSQL
+  
+#pagehelper:
+#  offsetAsPageNum: true
+#  rowBoundsWithCount: true
+#  reasonable: true
+#  pageSizeZero: true
+#    helperDialect: mysql
+#    reasonable: true
+#    supportMethodsArguments: true
+#    params: count=countSql 
+#注册中心
+eureka:
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://47.97.184.82:8888/eureka/
+
+  instance:
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+    instance-id: usercenter-reconstruction  # 在信息列表时显示主机名称
+    prefer-ip-address: true
+    ip-address: 47.97.184.82
+
+
